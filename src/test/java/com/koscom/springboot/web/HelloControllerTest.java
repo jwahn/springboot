@@ -15,7 +15,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest // web에 관련된, controller만 테스트할 때 @SpringBootTest 해도 되긴 하지만 불필요한 것까지 다 끌고 오니까. 간략하게
+//@WebMvcTest // web에 관련된, controller만 테스트할 때 @SpringBootTest 해도 되긴 하지만 불필요한 것까지 다 끌고 오니까. 간략하게
+@WebMvcTest(controllers = HelloController.class) //다른 repository나 이런 것들이 생겼으니까. 이제 다른건 읽지마 라고 세팅해줌
 public class HelloControllerTest {
 
     @Autowired

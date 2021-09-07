@@ -32,5 +32,12 @@ public class Posts {
     //Q. builder는 무엇인가?
     //Q. setter는 왜 없는가? 최신 Trend 에서는 setter를 쓰지 말자 쪽으로 가고 있다고 함. setter 없이 값을 어떻게 바꾸지??
 
+    //title과 content만 수정 가능하다
+    //author는 수정 가능하지 않다.
+    //수정일자도 신규로 생성된다.
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 
 }
