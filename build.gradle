@@ -1,0 +1,36 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.koscom'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral() // 요즘 대세
+	//maven('https://koscom.central.com') // 이런 식으로 추가도 가능
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//implementation 'com.koscom.lib:stock-lib:2.1.0'; //이런 식으로 추가해서 version 관리도 할 수 있다. lib를 복붙 안해도 되니까 너무 좋지.
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' //test에서만 쓸 거라는 선언. 괜히 이 lib 다른데서 쓰지 마세요. 하는 뜻
+}
+
+test {
+	useJUnitPlatform()
+}
