@@ -86,6 +86,20 @@ public class PostsServiceTest {
         System.out.println("newTime="+newTime);
 
         assertThat(newTime).isAfter(beforeTime);
+    }
 
+    @Test
+    void post를_삭제하면_당연히_삭제된다() {
+        Posts save = postsRepository.save(Posts.builder()
+                .title("delete test")
+                .content("delete content")
+                .build());
+        List<Posts> resultBefore = postsRepository.findAll();
+        postsService.delete(save.getId());
+        List<Posts> resultAfter = postsRepository.findAll();
+
+        System.out.println(">>> resultBefore size="+resultBefore.size());
+        System.out.println(">>> resultAfter size="+resultAfter.size());
+        assertThat(resultBefore.size()).isGreaterThanOrEqualTo(resultAfter.size());
     }
 }
