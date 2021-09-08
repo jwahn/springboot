@@ -13,6 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -89,17 +90,31 @@ public class PostsServiceTest {
     }
 
     @Test
-    void post를_삭제하면_당연히_삭제된다() {
+    void postService를_통해서_삭제가_된다() {
         Posts save = postsRepository.save(Posts.builder()
                 .title("delete test")
                 .content("delete content")
                 .build());
-        List<Posts> resultBefore = postsRepository.findAll();
         postsService.delete(save.getId());
         List<Posts> resultAfter = postsRepository.findAll();
+        assertThat(resultAfter).hasSize(0); //삭제 후 조회 시 아무 것도 없어야 함
+    }
 
-        System.out.println(">>> resultBefore size="+resultBefore.size());
-        System.out.println(">>> resultAfter size="+resultAfter.size());
-        assertThat(resultBefore.size()).isGreaterThanOrEqualTo(resultAfter.size());
+    @Test
+    void id가_일치해야만_삭제가_된다() {
+        Posts save = postsRepository.save(Posts.builder()
+                .title("delete test")
+                .content("delete content")
+                .build());
+
+        Posts deleteTarget = postsRepository.save(Posts.builder()
+                .title("delete test")
+                .content("delete content")
+                .build());
+
+        postsService.delete(deleteTarget.getId()); //삭제하려는 대상이 아닌 다른 posts의 아이디를 넣어본다
+        Optional<Posts> resultById = postsRepository.findById(deleteTarget.getId()); //Optional은 null이 반환될 수도 있다는 의미이다
+        assertThat(resultById.isPresent()).isFalse(); //삭제 후 조회 시 아무 것도 없어야 함
+//        assertThat(resultById.get().getId()).isEqualTo(deleteTarget.getId());
     }
 }
