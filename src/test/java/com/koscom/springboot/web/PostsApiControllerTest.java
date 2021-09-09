@@ -16,6 +16,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -25,6 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) //8080이 아닌 Random port를 가지고 tomcat을 띄워서 진행
 //@WebMvcTest //위와 비교하여, controller만 테스트
+@TestPropertySource(properties = {"security.enabled=false"})
 public class PostsApiControllerTest {
     @LocalServerPort
     private int port; //할당된 random port 번호를 알아야 할테니
