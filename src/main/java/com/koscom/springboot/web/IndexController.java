@@ -1,5 +1,8 @@
 package com.koscom.springboot.web;
 
+import com.koscom.springboot.config.auth.dto.SessionUser;
+import com.koscom.springboot.config.auth.login.LoginUser;
+import com.koscom.springboot.domain.user.User;
 import com.koscom.springboot.service.PostsService;
 import com.koscom.springboot.web.dto.posts.PostsResponseDto;
 import com.koscom.springboot.web.dto.posts.PostsSaveRequestDto;
@@ -9,16 +12,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.servlet.http.HttpSession;
+
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
 
     private final PostsService postsService;
+//    private final HttpSession httpSession;
 
     @GetMapping("/") //localhost:8080
-    public String index(Model model) {
+    public String index(Model model, @LoginUser SessionUser user) {
+        //SessionUser user = (SessionUser) httpSession.getAttribute("user"); // (1)
+
         postsService.save(new PostsSaveRequestDto("test", "test", "test"));
         model.addAttribute("posts", postsService.findAllDesc());
+        if (user != null) { // (2)
+            model.addAttribute("user", user);
+        }
         return "index"; //index.mustache 라고 할 필요가 없음 (자동으로 templates 밑에 있는 index.xxx 를 찾는다)
     }
 

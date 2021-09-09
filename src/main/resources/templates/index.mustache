@@ -5,6 +5,14 @@
     <div class="row">
         <div class="col-md-6">
             <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
+            {{#user}}
+                <img src="{{user.picture}}" width="50px" height="50px" />
+                Logged in as: <span id="user">{{user.name}}</span>
+                <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+            {{/user}}
+            {{^user}}
+                <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
+            {{/user}}
         </div>
     </div>
     <br>

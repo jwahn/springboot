@@ -28,13 +28,17 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
-	//implementation 'com.koscom.lib:stock-lib:2.1.0'; //이런 식으로 추가해서 version 관리도 할 수 있다. lib를 복붙 안해도 되니까 너무 좋지.
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    //implementation 'com.koscom.lib:stock-lib:2.1.0'; //이런 식으로 추가해서 version 관리도 할 수 있다. lib를 복붙 안해도 되니까 너무 좋지.
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test' //test에서만 쓸 거라는 선언. 괜히 이 lib 다른데서 쓰지 마세요. 하는 뜻
+
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' //네이버 아이디로 로그인
+	testImplementation 'org.springframework.security:spring-security-test' //네이버 아이디로 로그인, 테스트할 때 편리한 기능들을 제공
 }
 
 test {
